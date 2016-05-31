@@ -2,8 +2,9 @@
   <ion-content>
 
     <div class="list card current-product"
-    ng-class="skipped"
-    ng-show="currentProperty">
+    ng-class="{skipped: currentProperty.rated == false,
+        favorited: currentProperty.rated == true}"
+    ng-show="currentProperty && !currentProperty.hide">
       <div class="item item-image">
         <img ng-src="{{ currentProperty.cover_photo}}">
       </div>
@@ -12,11 +13,11 @@
         <p>{{currentProperty.weekly_rent_formatted}}</p>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" ng-click="skip()">
+        <a class="tab-item" ng-click="favorite(false)">
           <i class="icon ion-close"></i>
           Skip
         </a>
-        <a class="tab-item" ng-click="favorite()">
+        <a class="tab-item" ng-click="favorite(true)">
           <i class="icon ion-heart"></i>
           Favorite
         </a>

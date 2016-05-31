@@ -3,7 +3,7 @@ angular.module('apartmentsify.controllers', ['ionic', 'apartmentsify.http_servic
   /*
   Controller for the discover page
   */
-  .controller('DiscoverCtrl', function($scope, HttpService, $ionicLoading, User) {
+  .controller('DiscoverCtrl', function($scope, HttpService, User, $ionicLoading, $timeout) {
     $ionicLoading.show({
       template: 'Loading...'
     });
@@ -14,14 +14,21 @@ angular.module('apartmentsify.controllers', ['ionic', 'apartmentsify.http_servic
       $ionicLoading.hide();
     });
 
-    $scope.skip = function() {
-      var randomIndex = Math.round(Math.random() * ($scope.properties.length - 1));
-      $scope.currentProperty = angular.copy($scope.properties[randomIndex]);
+    $scope.favorite = function(bool) {
+      // set the variable for the correct animation sequence
+      $scope.currentProperty.rated = bool;
+      $scope.currentProperty.hide = true;
+
+      if(bool) User.addPropertyToFavorites($scope.currentProperty);
+
+      // $timeout to allow animation to complete before changing to the next product
+      $timeout(function() {
+        var randomIndex = Math.round(Math.random() * ($scope.properties.length - 1));
+        $scope.currentProperty = angular.copy($scope.properties[randomIndex]);
+
+      }, 250);
     }
 
-    $scope.favorite = function() {
-      User.addPropertyToFavorites($scope.currentProperty);
-    }
   })
 
   /*
