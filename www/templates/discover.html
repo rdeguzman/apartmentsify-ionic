@@ -6,7 +6,7 @@
         favorited: currentProperty.rated == true}"
     ng-show="currentProperty && !currentProperty.hide">
       <div class="item item-image">
-        <img ng-src="{{ currentProperty.cover_photo}}">
+        <img ng-src="{{currentProperty.cover_photo}}">
       </div>
       <div class="item">
         <h2>{{currentProperty.full_address}}</h2>
@@ -21,6 +21,9 @@
           <i class="icon ion-heart"></i>
           Favorite
         </a>
+      </div>
+      <div>
+        <p>{{currentProperty.description}}</p>
       </div>
     </div>
 
